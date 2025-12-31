@@ -8,10 +8,18 @@ import {
   StyleSheet,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const LogitTabBar = ({ state, navigation }: BottomTabBarProps) => {
+  const { bottom } = useSafeAreaInsets();
+
   return (
-    <View style={styles.tabBarContainer}>
+    <View
+      style={[
+        styles.tabBarContainer,
+        { marginBottom: bottom + (Platform.select({ android: 15 }) ?? 0) },
+      ]}
+    >
       <View style={styles.tabBar}>
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
@@ -82,7 +90,7 @@ const TabIcon = ({ source }: { source: any }) => {
 const styles = StyleSheet.create({
   tabBarContainer: {
     position: "absolute",
-    bottom: 40,
+    bottom: 0,
     left: 0,
     right: 0,
     alignItems: "center", // 중앙 정렬
