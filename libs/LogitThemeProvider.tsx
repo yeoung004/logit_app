@@ -1,21 +1,27 @@
 import "@/global.css";
+import { useSplashLoading } from "@/hooks/useSplashLoading";
 import "@/unistyles";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 import React from "react";
 import "react-native-reanimated";
 
-export const LogitThemeProvider = ({ children }: { children: React.ReactNode }) => {
+export const LogitThemeProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [loaded, error] = useFonts({
     PretendardVariable: require("@/assets/fonts/PretendardVariable.ttf"),
   });
 
+  const [, setLoading] = useSplashLoading("theme");
+
   React.useEffect(() => {
     if (loaded || error) {
-      SplashScreen.hideAsync();
+      setLoading(false);
     }
-  }, [loaded, error]);
+  }, [loaded, error, setLoading]);
 
   if (!loaded && !error) {
     return null;

@@ -24,6 +24,15 @@
       "package": "com.monostudio.logit"
     },
     "plugins": [
+      [
+        "expo-localization",
+        {
+          "supportedLocales": {
+            "ios": ["en", "ko"],
+            "android": ["en", "ko"]
+          }
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
